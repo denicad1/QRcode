@@ -1,37 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
 import './index.css';
 import parse from 'html-react-parser';
-
 
 function Qrcode (props) {
 
     const [code,setCode]=useState();
-    let htmlString="...";
-    let element='...';
-
-    useEffect(()=>{
+    let [text,setText]=useState();
+    
+    
         async function qr(){
-            await fetch("/code").then(res=>{
-                console.log('fetch');
+            console.log('running');
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body:  {message:text}
+            };
+            await fetch("/code",requestOptions).then(res=>{
               return res.text();
-                
-                
-             
             }).then(img=>{
-               
-
                 setCode(parse(img));
-                
             });
         }
        
-       qr();
-    },[]);
-   
-    
+        // useEffect(()=>{
+
+        // },[code])
+
     return (
-    
-    <div id='root' className='size'>
+    <div>
+       
+       <input type="text" name="message" id="message" onChange={setText} placeholder="enter text here"/>
+       <button onClick={qr}>Submit text for qrCode</button>
+       
        {code}
     </div>);
 }

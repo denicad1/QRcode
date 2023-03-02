@@ -9,6 +9,7 @@ const canvas=createCanvas(200,200);
 const ctx=canvas.getContext('2d');
 const qr=require('qr-image');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -28,10 +29,10 @@ app.use(express.static(path.join(__dirname,'client/build','index.html')));
 // app.use('/', indexRouter);
 // app.use('/users', usersRouter);
 
-app.get('/code',(req,res,next)=>{
-  qrcode.toDataURL('this is a test',((err,url)=>{
+app.post('/code',(req,res,next)=>{
+ 
+  qrcode.toDataURL(req.body,((err,url)=>{
    if (err) throw err;
-    
    return url;
   })
   )
