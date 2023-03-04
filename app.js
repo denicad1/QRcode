@@ -8,7 +8,7 @@ const {createCanvas,loadImage}=require('canvas');
 const canvas=createCanvas(200,200);
 const ctx=canvas.getContext('2d');
 const qr=require('qr-image');
-
+const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -23,6 +23,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+// app.use(bodyParser.text());
+// app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname,'client/build','index.html')));
 
@@ -31,11 +33,11 @@ app.use(express.static(path.join(__dirname,'client/build','index.html')));
 
 app.post('/code',(req,res,next)=>{
  
-  qrcode.toDataURL(req.body,((err,url)=>{
+  qrcode.toDataURL(req.body.message,((err,url)=>{
    if (err) throw err;
-   return url;
-  })
-  )
+   res.send(url);
+  }))
+})
   // let code=qrcode.create('this is a test');
   // res.send(code);
   // qrcode.toCanvas(ctx,'this is a test',(err)=>{
@@ -59,11 +61,11 @@ app.post('/code',(req,res,next)=>{
 //     console.error('Failed to return content', err);
 // }
 
-let code = qr.image(new Date().toString(), { type: 'svg' });
-  res.type('svg');
-  code.pipe(res);
+// let code = qr.image(new Date().toString(), { type: 'svg' });
+//   res.type('svg');
+//   code.pipe(res);
  
-})
+// })
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
 });
