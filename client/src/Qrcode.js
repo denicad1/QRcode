@@ -30,9 +30,6 @@ function Qrcode (props) {
             });
         }
        
-        // useEffect(()=>{
-
-        // },[code])
 
     return (
     <div>
