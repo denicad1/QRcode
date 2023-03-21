@@ -23,14 +23,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(bodyParser.text());
-// app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname,'client/build','index.html')));
+app.use(express.static(path.join(__dirname, './client/public')));
+app.use(express.static(path.join(__dirname,'./client/public','index.html')));
 
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
-
+//post request for generating qr code
 app.post('/code',(req,res,next)=>{
  
   qrcode.toDataURL(req.body.message,((err,url)=>{
@@ -38,36 +34,9 @@ app.post('/code',(req,res,next)=>{
    res.send(url);
   }))
 })
-  // let code=qrcode.create('this is a test');
-  // res.send(code);
-  // qrcode.toCanvas(ctx,'this is a test',(err)=>{
-  //   if (err) {
-  //     throw err;
-  //   }
-
-  // })
-//   try{           
-//     const qrStream = new PassThrough();
-//     const result = await QRCode.toFileStream(qrStream, "this is a test",
-//                 {
-//                     type: 'png',
-//                     width: 200,
-//                     errorCorrectionLevel: 'H'
-//                 }
-//             );
-
-//     qrStream.pipe(res);
-// } catch(err){
-//     console.error('Failed to return content', err);
-// }
-
-// let code = qr.image(new Date().toString(), { type: 'svg' });
-//   res.type('svg');
-//   code.pipe(res);
- 
-// })
+//get request to respond with react page
 app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+  res.sendFile(path.resolve(__dirname, './client/public', 'index.html'));
 });
 
 // catch 404 and forward to error handler
