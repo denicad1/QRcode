@@ -4,10 +4,6 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const qrcode=require('qrcode');
-const {createCanvas,loadImage}=require('canvas');
-const canvas=createCanvas(200,200);
-const ctx=canvas.getContext('2d');
-const qr=require('qr-image');
 const bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
