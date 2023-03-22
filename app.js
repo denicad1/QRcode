@@ -31,7 +31,7 @@ app.post('/code',(req,res,next)=>{
   }))
 })
 //get request to respond with react page
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './client/public', 'index.html'));
 });
 
