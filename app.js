@@ -19,8 +19,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, './client/public')));
-app.use(express.static(path.join(__dirname,'./client/public','index.html')));
+app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static(path.join(__dirname,'./client/build','index.html')));
 
 //post request for generating qr code
 app.post('/code',(req,res,next)=>{
@@ -32,7 +32,7 @@ app.post('/code',(req,res,next)=>{
 })
 //get request to respond with react page
 app.get('/*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './client/public', 'index.html'));
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'));
 });
 
 // catch 404 and forward to error handler
