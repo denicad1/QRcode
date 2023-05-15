@@ -28,29 +28,14 @@ function Qrcode (props) {
             });
         }
        
-        function iterateDots(){
-            var el = document.getElementById("dots");
-            var dotsStr = el.innerHTML;
-            console.log(dotsStr);
-            var dotsLen = dotsStr.length;
-            console.log(dotsLen);
         
-            var maxDots = 3;
-            el.innerHTML = (dotsLen < maxDots ? dotsStr + '.' : dotsStr='');
-        }
-        
-        function startLoading(){
-            const intervalMs = 1000;
-        
-            let interval = setInterval(iterateDots, intervalMs);
-        }  
 
     return (
     <div>
         <div className='margin-bottom'>
             <span className='title'>QR Code Generator</span>
         </div>
-        {code?<img src={code} className='margin-bottom'></img>:<div className='margin-bottom'>Waiting for input<span id='dots' onLoad={startLoading()}></span></div>}
+        {code?<img src={code} className='margin-bottom'></img>:<div className='margin-bottom'>Waiting for input<span id='dots'></span></div>}
        <form onSubmit={onSubmit} method='POST' className='flex-center flex-col'>
            <input type="text" className='input' name="message" id="message" onChange={info} placeholder=" Enter text here"/>
            <button type='submit' className='submit button-text'>Submit text for qrCode</button>
